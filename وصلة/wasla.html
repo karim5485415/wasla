@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حاسبة سعر التوصيل</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8f4;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            width: 300px;
+            margin: 0 auto;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+        button {
+            background-color: green;
+            color: white;
+            padding: 15px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #005600;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 20px;
+            color: green;
+        }
+        .map-container {
+            margin-top: 30px;
+        }
+        iframe {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>حاسبة سعر التوصيل</h1>
+        <form id="deliveryForm">
+            <label for="distance">أدخل المسافة (بالكيلومتر):</label>
+            <input type="number" id="distance" name="distance" required>
+
+            <label for="price_per_km">أدخل سعر الكيلومتر (بالجنيه المصري):</label>
+            <input type="number" id="price_per_km" name="price_per_km" required>
+
+            <button type="button" onclick="calculatePrice()">احسب السعر</button>
+        </form>
+        <div class="result" id="result"></div>
+    </div>
+
+    <div class="map-container">
+        <h2>خريطة محافظة الإسماعيلية</h2>
+        <iframe 
+            src="https://www.openstreetmap.org/export/embed.html?bbox=32.22312927246094%2C30.494430604285682%2C32.35488891601563%2C30.613416866660086&amp;layer=mapnik" 
+            width="600" 
+            height="400">
+        </iframe>
+        <br>
+        <small>
+            <a href="https://www.openstreetmap.org/?mlat=30.5539&amp;mlon=32.289" target="_blank">عرض الخريطة بحجم كامل</a>
+        </small>
+    </div>
+
+    <script>
+        function calculatePrice() {
+            // الحصول على القيم المدخلة
+            var distance = document.getElementById("distance").value;
+            var price_per_km = document.getElementById("price_per_km").value;
+
+            // التحقق من صحة القيم
+            if (distance <= 0 || price_per_km <= 0) {
+                document.getElementById("result").innerHTML = "الرجاء إدخال قيم صحيحة للمسافة وسعر الكيلومتر.";
+                document.getElementById("result").style.color = "red";
+            } else {
+                // حساب السعر
+                var total_price = distance * price_per_km;
+
+                // عرض النتيجة
+                document.getElementById("result").innerHTML = "سعر التوصيل هو: " + total_price + " جنيه مصري";
+                document.getElementById("result").style.color = "green";
+            }
+        }
+    </script>
+</body>
+</html>
